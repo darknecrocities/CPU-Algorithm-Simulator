@@ -1,0 +1,438 @@
+/* Modern CPU Scheduling Simulator Styles */
+
+/* CSS Variables for Theming */
+:root {
+    --primary-color: #6366f1;
+    --primary-dark: #4f46e5;
+    --secondary-color: #ec4899;
+    --accent-color: #06b6d4;
+    --bg-dark: #0f172a;
+    --bg-card: #1e293b;
+    --bg-light: #334155;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+}
+
+/* Global Styles */
+.stApp {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1f3d 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header Styling */
+h1 {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em;
+    text-align: center;
+    padding: 20px 0;
+}
+
+h2, h3 {
+    color: var(--text-primary) !important;
+    font-weight: 600 !important;
+}
+
+/* Sidebar Styling */
+.css-1d391kg {
+    background: var(--bg-card) !important;
+    border-right: 1px solid var(--bg-light);
+}
+
+/* Card/Container Styling */
+.metric-box {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: var(--transition);
+}
+
+.metric-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.4);
+}
+
+/* Button Styling */
+.stButton > button {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark)) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--border-radius) !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    transition: var(--transition) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100% !important;
+    height: 40px !important;
+    margin: 2px 0;
+}
+
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Secondary Button */
+.stButton > button[kind="secondary"] {
+    background: var(--bg-light) !important;
+    border: 1px solid var(--primary-color) !important;
+}
+
+/* Input Styling */
+.stNumberInput > div > div > input {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--bg-light) !important;
+    border-radius: 8px !important;
+}
+
+.stSelectbox > div > div {
+    background: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--bg-light) !important;
+    border-radius: 8px !important;
+}
+
+/* DataFrame Styling */
+.stDataFrame {
+    background: var(--bg-card) !important;
+    border-radius: var(--border-radius) !important;
+    overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+/* Gantt Chart Container */
+.gantt-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+/* Process Block in Gantt */
+.process-block {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 2px;
+    border-radius: 6px;
+    font-weight: 600;
+    text-align: center;
+    transition: var(--transition);
+    animation: fadeIn 0.5s ease;
+}
+
+.process-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Chatbot Container */
+.chatbot-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.chat-message {
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 12px;
+    animation: fadeIn 0.3s ease;
+}
+
+.chat-message.user {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    margin-left: 20%;
+    text-align: right;
+}
+
+.chat-message.assistant {
+    background: var(--bg-light);
+    color: var(--text-primary);
+    margin-right: 20%;
+    border-left: 3px solid var(--accent-color);
+}
+
+/* Metrics Dashboard */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.metric-card {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-light) 100%);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    text-align: center;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    transition: var(--transition);
+}
+
+.metric-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.2);
+}
+
+.metric-value {
+    font-size: 2em;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.metric-label {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Queue Visualization */
+.queue-container {
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin: 20px 0;
+    border: 2px dashed var(--bg-light);
+}
+
+.queue-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    color: white;
+    border-radius: 50%;
+    margin: 5px;
+    font-weight: 700;
+    animation: slideIn 0.5s ease;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+/* Comparison Table */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-card);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.comparison-table th {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.comparison-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--bg-light);
+    color: var(--text-primary);
+}
+
+.comparison-table tr:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+/* Export Buttons */
+.export-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-light);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: var(--transition);
+    margin: 5px;
+}
+
+.export-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Animation Controls */
+.animation-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.control-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: var(--bg-light);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+/* Progress Bar */
+.progress-container {
+    background: var(--bg-light);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Status Indicators */
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.status-running {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--success-color);
+}
+
+.status-waiting {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--warning-color);
+}
+
+.status-completed {
+    background: rgba(99, 102, 241, 0.2);
+    color: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .chat-message.user,
+    .chat-message.assistant {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+}
+
+/* Loading Animation */
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--bg-light);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    cursor: help;
+}
+
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 12px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border-radius: 6px;
+    font-size: 0.85em;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    border: 1px solid var(--bg-light);
+}
+
+.tooltip:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: calc(100% + 10px);
+}

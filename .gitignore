@@ -1,0 +1,22 @@
+# Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Environment variables
+.env
+
+# Streamlit cache
+.streamlit/
+
+# VS Code settings (optional)
+.vscode/
+
+# macOS system files (optional)
+.DS_Store
