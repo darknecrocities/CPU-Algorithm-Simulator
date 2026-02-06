@@ -15,7 +15,7 @@ def fcfs(df):
     return pd.DataFrame(out, columns=["Process", "Waiting Time", "Turnaround Time"])
 
 
-# -----------------------------
+# -----------------------------a
 # Shortest Job First (Non-Preemptive)
 # -----------------------------
 def sjf(df):
