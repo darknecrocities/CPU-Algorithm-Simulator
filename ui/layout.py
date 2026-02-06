@@ -65,7 +65,7 @@ def render_footer():
     st.markdown("---")
     st.markdown("""
         <div style="text-align: center; padding: 20px; color: #64748b;">
-            <p>Built with ❤️ using Streamlit | Powered by Gemini 1.5 AI</p>
+            <p>Dveloped by THE-SIS IT | Powered by Gemini 3.0 AI</p>
             <p style="font-size: 0.9em;">CPU Scheduling Algorithm Simulator v2.0</p>
         </div>
     """, unsafe_allow_html=True)
