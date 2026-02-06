@@ -195,7 +195,7 @@ This simulator is perfect for:
 ### API Key Setup
 The Gemini API key is pre-configured in `ui/chatbot.py`:
 ```python
-GEMINI_API_KEY = "AIzaSyA9XkTmTaRUelGv4HEwRklBKfJ7mg6GYmc"
+GEMINI_API_KEY = "YOUR_API_KEY"
 ```
 
 To use your own API key:
