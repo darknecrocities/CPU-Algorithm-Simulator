@@ -258,6 +258,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Plotly](https://plotly.com) for interactive visualizations
 - [FPDF](https://py-pdf.github.io/fpdf2/) for PDF export functionality
 
+## 👨‍💻👩🏻‍💻 Developer
+- Arron Kian Parejas (App Developer)
+- Graciella Mhervie Jimenez (Project Manager)
+- Jenica Sarah Tongol (Documentation/QA)
+- Jian kalel Marquez (Unit Testing/Documentation)
+
 ## 📧 Contact
 
 For questions or suggestions, please open an issue on GitHub or contact the maintainer.
