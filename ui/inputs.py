@@ -77,6 +77,19 @@ def process_inputs():
     # Number of processes
     n = st.sidebar.number_input("Number of Processes", 1, 10, n_default)
     
+    # Algorithm selection with descriptions - MOVED BEFORE process inputs
+    st.sidebar.markdown("### 🔧 Algorithm")
+    algo = st.sidebar.selectbox(
+        "Select Algorithm",
+        ["FCFS", "SJN", "Priority", "Round Robin"],
+        help="""
+        FCFS: First Come First Serve - Simple queue\n
+        SJN: Shortest Job First - Optimal for waiting time\n
+        Priority: Priority-based scheduling\n
+        Round Robin: Time-sliced for fairness
+        """
+    )
+    
     # Initialize data list
     data = []
     
@@ -95,34 +108,35 @@ def process_inputs():
             bt_default = 5
             pr_default = 1
         
-        # Create columns for compact layout
-        col1, col2, col3 = st.sidebar.columns(3)
-        
-        with col1:
-            at = st.number_input("AT", 0, value=at_default, key=f"a{i}", 
-                               help="Arrival Time")
-        with col2:
-            bt = st.number_input("BT", 1, value=bt_default, key=f"b{i}", 
-                               help="Burst Time")
-        with col3:
-            pr = st.number_input("Pr", 1, value=pr_default, key=f"p{i}", 
-                               help="Priority (lower = higher priority)")
+        # Create columns for compact layout - conditional on algorithm
+        if algo == "Priority":
+            # Show all 3 columns for Priority algorithm
+            col1, col2, col3 = st.sidebar.columns(3)
+            
+            with col1:
+                at = st.number_input("AT", 0, value=at_default, key=f"a{i}", 
+                                   help="Arrival Time")
+            with col2:
+                bt = st.number_input("CC", 1, value=bt_default, key=f"b{i}", 
+                                   help="Burst Time")
+            with col3:
+                pr = st.number_input("P", 1, value=pr_default, key=f"p{i}", 
+                                   help="Priority (lower = higher priority)")
+        else:
+            # Show only 2 columns for FCFS, SJF, Round Robin (no priority input)
+            col1, col2 = st.sidebar.columns(2)
+            
+            with col1:
+                at = st.number_input("AT", 0, value=at_default, key=f"a{i}", 
+                                   help="Arrival Time")
+            with col2:
+                bt = st.number_input("CC", 1, value=bt_default, key=f"b{i}", 
+                                   help="Burst Time")
+            # Assign default priority for non-priority algorithms
+            pr = 1
         
         data.append([f"P{i+1}", at, bt, pr])
         st.sidebar.markdown("---")
-    
-    # Algorithm selection with descriptions
-    st.sidebar.markdown("### 🔧 Algorithm")
-    algo = st.sidebar.selectbox(
-        "Select Algorithm",
-        ["FCFS", "SJF", "Priority", "Round Robin"],
-        help="""
-        FCFS: First Come First Serve - Simple queue\n
-        SJF: Shortest Job First - Optimal for waiting time\n
-        Priority: Priority-based scheduling\n
-        Round Robin: Time-sliced for fairness
-        """
-    )
     
     # Time quantum for Round Robin
     q = None
