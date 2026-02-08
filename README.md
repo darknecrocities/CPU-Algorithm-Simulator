@@ -2,7 +2,7 @@
 
 [![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io)
 [![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![Gemini](https://img.shields.io/badge/Gemini_1.5-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
+[![Gemini](https://img.shields.io/badge/Gemini_3.0-4285F4?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev)
 
 An interactive, modern CPU Scheduling Algorithm Simulator built with Streamlit, featuring real-time visualizations, comprehensive performance metrics, and AI-powered explanations using Google's Gemini 1.5.
 
