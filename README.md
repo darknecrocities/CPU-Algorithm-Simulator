@@ -272,4 +272,4 @@ For questions or suggestions, please open an issue on GitHub or contact the main
 
 **Happy Scheduling! 🖥️⚡**
 
-Built with ❤️ using Streamlit and Gemini 1.5
+Built with ❤️ using Streamlit and Gemini 3.0
