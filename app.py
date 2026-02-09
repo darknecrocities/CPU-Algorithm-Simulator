@@ -11,7 +11,7 @@ st.set_page_config(
     page_title="CPU Scheduling Algorithm Simulator",
     page_icon="🖥️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 from ui.layout import setup_layout, render_footer
@@ -42,34 +42,42 @@ main_tabs = st.tabs(["🎮 Simulator", "🔬 Comparison Mode", "🤖 AI Advisor"
 with main_tabs[0]:
     # Simulator Tab
     st.markdown("""
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2>Configure Your Simulation</h2>
-            <p style="color: #94a3b8;">Set up processes and choose an algorithm to visualize CPU scheduling</p>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: #f8fafc;">🎮 Simulator</h2>
+            <p style="color: #94a3b8;">Configure processes and run scheduling algorithms</p>
         </div>
     """, unsafe_allow_html=True)
     
-    # Get inputs
+    # Get inputs - now in main page instead of sidebar
     process_df, algorithm, quantum = process_inputs()
     
-    # Action buttons
-    col1, col2, col3 = st.columns([1, 1, 2])
+    # Action buttons in a nice card layout
+    st.markdown("""
+        <div style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 20px; border-radius: 15px; margin: 20px 0;">
+            <h4 style="color: #f8fafc; margin-bottom: 15px;">🚀 Actions</h4>
+        </div>
+    """, unsafe_allow_html=True)
     
-    with col1:
-        run_clicked = st.button("▶️ Run Simulation", width='stretch', type="primary")
+    btn_col1, btn_col2, btn_col3 = st.columns([1, 1, 2])
     
-    with col2:
-        compare_clicked = st.button("🔬 Compare All Algorithms", width='stretch')
+    with btn_col1:
+        run_clicked = st.button("▶️ Run Simulation", use_container_width=True, type="primary")
     
-    with col3:
+    with btn_col2:
+        compare_clicked = st.button("🔬 Compare All", use_container_width=True)
+    
+    with btn_col3:
         if st.session_state.simulation_results is not None:
-            st.success("✅ Simulation ready - check other tabs!")
+            st.success("✅ Results ready - check other tabs!")
+        else:
+            st.info("💡 Configure processes above and click Run")
     
     # Run single algorithm
     if run_clicked:
         with st.spinner("Running simulation..."):
             if algorithm == "FCFS":
                 results = fcfs(process_df)
-            elif algorithm == "SJF":
+            elif algorithm == "SJN":
                 results = sjf(process_df)
             elif algorithm == "Priority":
                 results = priority_scheduling(process_df)
@@ -99,7 +107,7 @@ with main_tabs[0]:
     # Run comparison mode
     if compare_clicked:
         with st.spinner("Running all algorithms for comparison..."):
-            algorithms = ["FCFS", "SJF", "Priority", "Round Robin"]
+            algorithms = ["FCFS", "SJN", "Priority", "Round Robin"]
             st.session_state.all_results = {}
             
             progress_bar = st.progress(0)
@@ -109,7 +117,7 @@ with main_tabs[0]:
                 
                 if algo == "FCFS":
                     res = fcfs(process_df)
-                elif algo == "SJF":
+                elif algo == "SJN":
                     res = sjf(process_df)
                 elif algo == "Priority":
                     res = priority_scheduling(process_df)
@@ -131,7 +139,11 @@ with main_tabs[0]:
     
     # Display results if available
     if st.session_state.simulation_results is not None and not st.session_state.comparison_mode:
-        st.markdown("---")
+        st.markdown("""
+            <div style="background: linear-gradient(135deg, #059669 0%, #047857 100%); padding: 15px; border-radius: 10px; margin: 20px 0;">
+                <h3 style="color: white; margin: 0;">📊 Simulation Results</h3>
+            </div>
+        """, unsafe_allow_html=True)
         show_results(
             st.session_state.simulation_results['df'],
             st.session_state.simulation_results['results'],
@@ -142,23 +154,28 @@ with main_tabs[0]:
 with main_tabs[1]:
     # Comparison Mode Tab
     st.markdown("""
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2>🔬 Algorithm Comparison</h2>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: #f8fafc;">🔬 Algorithm Comparison</h2>
             <p style="color: #94a3b8;">Compare performance across all scheduling algorithms</p>
         </div>
     """, unsafe_allow_html=True)
     
     if len(st.session_state.all_results) > 0:
+        st.markdown("""
+            <div style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                <h4 style="color: white; margin: 0;">📈 Comparing {0} Algorithms</h4>
+            </div>
+        """.format(len(st.session_state.all_results)), unsafe_allow_html=True)
         show_comparison_results(st.session_state.all_results)
     else:
-        st.info("👆 Run 'Compare All Algorithms' in the Simulator tab first!")
+        st.warning("⚠️ No comparison data available. Run 'Compare All' in the Simulator tab first!")
 
 with main_tabs[2]:
     # AI Advisor Tab (Chatbot)
     st.markdown("""
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h2>🤖 Gemini AI Scheduling Advisor</h2>
-            <p style="color: #94a3b8;">Get expert explanations and recommendations powered by Gemini 1.5</p>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <h2 style="color: #f8fafc;">🤖 AI Scheduling Advisor</h2>
+            <p style="color: #94a3b8;">Get expert explanations and recommendations powered by Gemini</p>
         </div>
     """, unsafe_allow_html=True)
     

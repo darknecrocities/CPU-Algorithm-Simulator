@@ -17,27 +17,27 @@ def setup_layout():
     # Load custom CSS
     load_css()
     
-    # Custom header with animation
+    # Custom header with modern design
     st.markdown("""
-        <div style="text-align: center; padding: 20px 0;">
-            <h1 style="font-size: 3em; margin-bottom: 10px;">
+        <div style="text-align: center; padding: 30px 0; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); border-radius: 15px; margin-bottom: 20px;">
+            <h1 style="font-size: 2.5em; margin-bottom: 10px; color: #f8fafc;">
                 🖥️ CPU Scheduling Simulator
             </h1>
-            <p style="color: #94a3b8; font-size: 1.2em;">
+            <p style="color: #94a3b8; font-size: 1.1em;">
                 Interactive Algorithm Visualization & Analysis Platform
             </p>
         </div>
     """, unsafe_allow_html=True)
     
-    # Add theme toggle in sidebar
-    with st.sidebar:
-        st.markdown("---")
-        st.markdown("### 🎨 Appearance")
+    # Theme toggle in main page
+    col1, col2, col3 = st.columns([3, 1, 3])
+    with col2:
         theme = st.selectbox(
-            "Theme",
+            "🎨 Theme",
             ["Dark", "Light"],
             index=0,
-            help="Select your preferred theme"
+            help="Select your preferred theme",
+            label_visibility="collapsed"
         )
         
         if theme == "Light":
@@ -55,10 +55,6 @@ def setup_layout():
                 }
                 </style>
             """, unsafe_allow_html=True)
-        
-        st.markdown("---")
-        st.markdown("### 📊 Quick Stats")
-        st.info("💡 Tip: Use the chatbot for algorithm explanations!")
 
 def render_footer():
     """Render application footer"""

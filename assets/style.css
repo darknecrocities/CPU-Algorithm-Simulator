@@ -111,6 +111,11 @@ h2, h3 {
     overflow: hidden;
 }
 
+/* Make dataframe scrollable on mobile */
+.stDataFrame > div {
+    overflow-x: auto !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -380,16 +385,198 @@ h2, h3 {
     color: var(--primary-color);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .metrics-grid {
-        grid-template-columns: 1fr;
+/* ============================================
+   MOBILE RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 2em !important;
     }
     
+    h2 {
+        font-size: 1.5em !important;
+    }
+    
+    .metric-value {
+        font-size: 1.5em;
+    }
+    
+    .metric-card {
+        padding: 12px;
+    }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+    /* Header adjustments */
+    h1 {
+        font-size: 1.5em !important;
+        padding: 10px 0;
+    }
+    
+    h2 {
+        font-size: 1.2em !important;
+    }
+    
+    h3 {
+        font-size: 1em !important;
+    }
+    
+    /* Sidebar adjustments for mobile */
+    .css-1d391kg {
+        width: 100% !important;
+    }
+    
+    /* Stack columns on mobile */
+    .stColumns {
+        flex-direction: column !important;
+    }
+    
+    .stColumns > div {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Metric cards - stack on mobile */
+    .metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .metric-card {
+        padding: 10px;
+    }
+    
+    .metric-value {
+        font-size: 1.2em;
+    }
+    
+    .metric-label {
+        font-size: 0.8em;
+    }
+    
+    /* Chat messages - full width on mobile */
     .chat-message.user,
     .chat-message.assistant {
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    
+    /* Queue items - smaller on mobile */
+    .queue-item {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9em;
+    }
+    
+    /* Process blocks - smaller on mobile */
+    .process-block {
+        padding: 6px 12px;
+        font-size: 0.9em;
+    }
+    
+    /* Dataframe adjustments */
+    .stDataFrame {
+        font-size: 0.85em;
+    }
+    
+    /* Button adjustments */
+    .stButton > button {
+        padding: 10px 16px !important;
+        font-size: 0.9em !important;
+    }
+    
+    /* Tab adjustments */
+    .stTabs [data-baseweb="tab-list"] {
+        flex-wrap: wrap !important;
+    }
+    
+    .stTabs [data-baseweb="tab"] {
+        font-size: 0.85em !important;
+        padding: 8px 12px !important;
+    }
+    
+    /* Radio buttons - stack on mobile */
+    .stRadio > div {
+        flex-direction: column !important;
+    }
+    
+    /* Expander adjustments */
+    .streamlit-expanderHeader {
+        font-size: 0.9em !important;
+    }
+    
+    /* Plotly charts - ensure they fit */
+    .js-plotly-plot {
+        max-width: 100% !important;
+    }
+    
+    /* Sidebar inputs - more compact */
+    .stNumberInput > div > div > input {
+        font-size: 0.9em !important;
+        padding: 6px !important;
+    }
+    
+    /* Selectbox - more compact */
+    .stSelectbox > div > div {
+        font-size: 0.9em !important;
+    }
+    
+    /* Caption text - smaller */
+    .stCaption {
+        font-size: 0.75em !important;
+    }
+    
+    /* Info boxes - smaller text */
+    .stInfo {
+        font-size: 0.85em !important;
+    }
+    
+    /* Warning boxes - smaller text */
+    .stWarning {
+        font-size: 0.85em !important;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2em !important;
+    }
+    
+    h2 {
+        font-size: 1em !important;
+    }
+    
+    /* Even more compact on very small screens */
+    .metric-value {
+        font-size: 1em;
+    }
+    
+    .metric-label {
+        font-size: 0.7em;
+    }
+    
+    /* Stack all columns */
+    [class*="col"] {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    /* Smaller queue items */
+    .queue-item {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8em;
+        margin: 3px;
+    }
+    
+    /* Ensure tables are scrollable */
+    .stDataFrame > div {
+        overflow-x: scroll !important;
+        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -435,4 +622,35 @@ h2, h3 {
     opacity: 1;
     visibility: visible;
     bottom: calc(100% + 10px);
+}
+
+/* Ensure plotly charts are responsive */
+.js-plotly-plot .plotly {
+    max-width: 100% !important;
+}
+
+/* Fix for streamlit columns on mobile */
+@media (max-width: 768px) {
+    div[data-testid="column"] {
+        width: 100% !important;
+        flex: 1 1 100% !important;
+        min-width: 100% !important;
+    }
+}
+
+/* Fix for horizontal scrolling in dataframes */
+.stDataFrame > div > div {
+    overflow-x: auto !important;
+}
+
+/* Better spacing for mobile */
+@media (max-width: 768px) {
+    .stMarkdown {
+        margin-bottom: 0.5rem !important;
+    }
+    
+    .stSubheader {
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
 }

@@ -8,14 +8,16 @@ def fcfs(df):
     out = []
     for _, p in df.sort_values("Arrival").iterrows():
         time = max(time, p.Arrival)
+        start = time
         wt = time - p.Arrival
         time += p.Burst
+        end = time
         tat = time - p.Arrival
-        out.append([p.Process, wt, tat])
-    return pd.DataFrame(out, columns=["Process", "Waiting Time", "Turnaround Time"])
+        out.append([p.Process, start, end, wt, tat])
+    return pd.DataFrame(out, columns=["Process", "Start Time", "End Time", "Waiting Time", "Turnaround Time"])
 
 
-# -----------------------------a
+# -----------------------------
 # Shortest Job First (Non-Preemptive)
 # -----------------------------
 def sjf(df):
@@ -26,12 +28,14 @@ def sjf(df):
             time += 1
             continue
         p = ready.sort_values("Burst").iloc[0]
+        start = time
         wt = time - p.Arrival
         time += p.Burst
+        end = time
         tat = time - p.Arrival
         done.append(p.Process)
-        out.append([p.Process, wt, tat])
-    return pd.DataFrame(out, columns=["Process", "Waiting Time", "Turnaround Time"])
+        out.append([p.Process, start, end, wt, tat])
+    return pd.DataFrame(out, columns=["Process", "Start Time", "End Time", "Waiting Time", "Turnaround Time"])
 
 
 # -----------------------------
@@ -45,12 +49,14 @@ def priority_scheduling(df):
             time += 1
             continue
         p = ready.sort_values("Priority").iloc[0]  # lower number = higher priority
+        start = time
         wt = time - p.Arrival
         time += p.Burst
+        end = time
         tat = time - p.Arrival
         done.append(p.Process)
-        out.append([p.Process, wt, tat])
-    return pd.DataFrame(out, columns=["Process", "Waiting Time", "Turnaround Time"])
+        out.append([p.Process, start, end, wt, tat])
+    return pd.DataFrame(out, columns=["Process", "Start Time", "End Time", "Waiting Time", "Turnaround Time"])
 
 
 # -----------------------------
@@ -63,6 +69,8 @@ def round_robin(df, q):
     arrived = set()
     wt = {p: 0 for p in df.Process}
     tat = {p: 0 for p in df.Process}
+    start_times = {p: None for p in df.Process}
+    end_times = {p: 0 for p in df.Process}
 
     while remaining:
         # Add newly arrived processes
@@ -77,8 +85,14 @@ def round_robin(df, q):
 
         cur = queue.pop(0)
         exec_time = min(q, remaining[cur])
+        
+        # Record start time on first execution
+        if start_times[cur] is None:
+            start_times[cur] = time
+        
         time += exec_time
         remaining[cur] -= exec_time
+        end_times[cur] = time
 
         # Add newly arrived during execution
         for p in df.Process:
@@ -93,7 +107,5 @@ def round_robin(df, q):
         else:
             queue.append(cur)
 
-    out = [[p, wt[p], tat[p]] for p in df.Process]
-    return pd.DataFrame(out, columns=["Process", "Waiting Time", "Turnaround Time"])
-
-
+    out = [[p, start_times[p], end_times[p], wt[p], tat[p]] for p in df.Process]
+    return pd.DataFrame(out, columns=["Process", "Start Time", "End Time", "Waiting Time", "Turnaround Time"])

@@ -45,6 +45,7 @@ class ResultsExporter:
         for _, row in combined.iterrows():
             pdf.cell(0, 8, f"{row['Process']}: Arrival={row['Arrival']}, "
                           f"Burst={row['Burst']}, Priority={row['Priority']}, "
+                          f"Start={row['Start Time']}, End={row['End Time']}, "
                           f"WT={row['Waiting Time']}, TAT={row['Turnaround Time']}", ln=True)
         
         pdf.ln(10)
@@ -113,27 +114,70 @@ def show_overview_tab(df, results, algorithm, metrics):
     """Show overview tab with basic results"""
     st.subheader("📋 Process Execution Results")
     
-    # Results table
-    col1, col2 = st.columns([2, 1])
+    # Results table - full width for better mobile viewing
+    st.markdown("**Process Details & Results**")
+    
+    # Merge df with results to show all information
+    display_df = pd.merge(df, results, on="Process")
+    
+    # Reorder columns for better display: Process, Arrival, Burst, Priority (only for Priority algorithm), Start, End, WT, TAT
+    if algorithm == "Priority":
+        column_order = ["Process", "Arrival", "Burst", "Priority", "Start Time", "End Time", "Waiting Time", "Turnaround Time"]
+        column_config = {
+            "Process": st.column_config.TextColumn("Process", width="small"),
+            "Arrival": st.column_config.NumberColumn("AT", width="small"),
+            "Burst": st.column_config.NumberColumn("BT", width="small"),
+            "Priority": st.column_config.NumberColumn("Priority", width="small"),
+            "Start Time": st.column_config.NumberColumn("Start", width="small"),
+            "End Time": st.column_config.NumberColumn("End", width="small"),
+            "Waiting Time": st.column_config.NumberColumn("WT", width="small"),
+            "Turnaround Time": st.column_config.NumberColumn("TAT", width="small")
+        }
+    else:
+        column_order = ["Process", "Arrival", "Burst", "Start Time", "End Time", "Waiting Time", "Turnaround Time"]
+        column_config = {
+            "Process": st.column_config.TextColumn("Process", width="small"),
+            "Arrival": st.column_config.NumberColumn("AT", width="small"),
+            "Burst": st.column_config.NumberColumn("BT", width="small"),
+            "Start Time": st.column_config.NumberColumn("Start", width="small"),
+            "End Time": st.column_config.NumberColumn("End", width="small"),
+            "Waiting Time": st.column_config.NumberColumn("WT", width="small"),
+            "Turnaround Time": st.column_config.NumberColumn("TAT", width="small")
+        }
+    
+    display_df = display_df[column_order]
+    
+    # Display with full container width and horizontal scrolling for mobile
+    st.dataframe(
+        display_df, 
+        use_container_width=True, 
+        hide_index=True,
+        column_config=column_config
+    )
+    
+    # Quick stats in responsive columns
+    st.markdown("**Quick Stats**")
+    
+    # Use columns that stack on mobile
+    col1, col2, col3, col4 = st.columns(4)
     
     with col1:
-        st.markdown("**Process Details & Results**")
-        display_df = pd.merge(df, results, on="Process")
-        st.dataframe(display_df, use_container_width=True, hide_index=True)
+        avg_wt = results['Waiting Time'].mean()
+        st.metric("Avg WT", f"{avg_wt:.2f}")
     
     with col2:
-        st.markdown("**Quick Stats**")
-        
-        # Metric cards
-        avg_wt = results['Waiting Time'].mean()
         avg_tat = results['Turnaround Time'].mean()
-        
-        st.metric("Avg Waiting Time", f"{avg_wt:.2f}", 
-                delta=f"{avg_wt - df['Burst'].mean():.2f} vs burst")
-        st.metric("Avg Turnaround Time", f"{avg_tat:.2f}")
-        
+        st.metric("Avg TAT", f"{avg_tat:.2f}")
+    
+    with col3:
         if 'cpu_utilization' in metrics:
-            st.metric("CPU Utilization", f"{metrics['cpu_utilization']['percentage']}%")
+            st.metric("CPU Util", f"{metrics['cpu_utilization']['percentage']}%")
+        else:
+            st.metric("CPU Util", "N/A")
+    
+    with col4:
+        total_time = results['End Time'].max()
+        st.metric("Total Time", f"{total_time}")
     
     # Basic bar chart
     st.markdown("**Waiting Time Comparison**")
@@ -144,7 +188,8 @@ def show_overview_tab(df, results, algorithm, metrics):
         plot_bgcolor='#1e293b',
         paper_bgcolor='#0f172a',
         font_color='#f8fafc',
-        showlegend=False
+        showlegend=False,
+        height=400  # Fixed height for mobile
     )
     st.plotly_chart(fig, use_container_width=True)
 
@@ -176,7 +221,7 @@ def show_metrics_dashboard(metrics, formatted_metrics):
     """Show comprehensive metrics dashboard"""
     st.subheader("🎯 Performance Metrics Dashboard")
     
-    # Key metrics in grid
+    # Key metrics in responsive grid
     cols = st.columns(4)
     
     with cols[0]:
@@ -374,6 +419,12 @@ def show_export_tab(df, results, metrics, algorithm):
     # Preview
     with st.expander("Preview Data"):
         combined = pd.merge(df, results, on="Process")
+        # Reorder columns for preview - only show Priority for Priority algorithm
+        if algorithm == "Priority":
+            column_order = ["Process", "Arrival", "Burst", "Priority", "Start Time", "End Time", "Waiting Time", "Turnaround Time"]
+        else:
+            column_order = ["Process", "Arrival", "Burst", "Start Time", "End Time", "Waiting Time", "Turnaround Time"]
+        combined = combined[column_order]
         st.dataframe(combined, use_container_width=True)
 
 def show_comparison_results(all_results):
@@ -429,7 +480,8 @@ def show_comparison_results(all_results):
             bgcolor='#1e293b',
             bordercolor='#6366f1',
             borderwidth=1
-        )
+        ),
+        height=500  # Fixed height for mobile
     )
     st.plotly_chart(fig, use_container_width=True)
     

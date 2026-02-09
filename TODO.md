@@ -1,20 +1,23 @@
-# Task: Make Priority Input Optional for FCFS, SJF, and Round Robin
+# Implementation TODO
 
-## Plan:
-- [x] Analyze current implementation
-- [x] Modify `ui/inputs.py` to make Priority input conditional
-- [x] Test the application to ensure all algorithms work correctly
-- [x] Verify Priority algorithm still requires priority values
-- [x] Ensure FCFS, SJF, and Round Robin work without priority input
+## Completed Tasks:
+- [x] Create TODO file
+- [x] Fix SJN/SJF mismatch in `app.py`
+- [x] Modify algorithms in `core/algorithms.py` to return Start Time, End Time, WT, TAT
+- [x] Update `ui/results.py` to display all columns properly
+- [x] Fix `ui/inputs.py` for mobile-friendly layout
+- [x] Add mobile-responsive CSS rules to `assets/style.css`
 
-## Changes Completed:
-1. ✅ Moved algorithm selection before process input fields
-2. ✅ Made Priority input field conditional based on selected algorithm
-3. ✅ Assigned default priority value (1) when not using Priority algorithm
-4. ✅ Updated column layout for 2 or 3 columns based on algorithm
+## Files Edited:
+1. `app.py` - Fixed algorithm name mismatch (SJF → SJN)
+2. `core/algorithms.py` - Added Start Time, End Time columns to all algorithms
+3. `ui/results.py` - Updated table display with all columns, mobile-friendly layout
+4. `ui/inputs.py` - Mobile-friendly input layout with compact columns
+5. `assets/style.css` - Comprehensive mobile responsiveness
 
-## Summary:
-- **FCFS, SJF, Round Robin**: Now only show Arrival Time (AT) and Burst Time (BT) inputs
-- **Priority Algorithm**: Shows all three inputs including Priority (Pr)
-- **Default Priority**: Non-priority algorithms automatically assign priority=1 to all processes
-- **Backward Compatibility**: Predefined scenarios still work with all algorithms
+## Testing:
+- [ ] Test SJN algorithm selection - should not crash
+- [ ] Test mobile responsiveness on different screen sizes
+- [ ] Verify results table shows: Process, Arrival, Burst, Priority, Start Time, End Time, WT, TAT
+- [ ] Run all algorithms to ensure no regressions
+- [ ] Test comparison mode functionality

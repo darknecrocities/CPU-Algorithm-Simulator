@@ -50,7 +50,7 @@ class PerformanceMetrics:
                                    schedule: List[Tuple[str, int, int]]) -> Dict:
         """Calculate CPU utilization metrics"""
         if not schedule:
-            return {'percentage': 0, 'idle_time': 0, 'busy_time': 0}
+            return {'percentage': 0, 'idle_time': 0, 'busy_time': 0, 'total_time': 0}
         
         total_time = schedule[-1][2]  # End time of last process
         busy_time = sum(end - start for _, start, end in schedule)
@@ -67,7 +67,7 @@ class PerformanceMetrics:
                             schedule: List[Tuple[str, int, int]]) -> Dict:
         """Calculate throughput metrics"""
         if not schedule:
-            return {'processes_per_unit': 0, 'total_processes': 0}
+            return {'processes_per_unit': 0, 'total_processes': 0, 'total_time': 0}
         
         total_time = schedule[-1][2]
         n_processes = len(df)
